@@ -1,3 +1,4 @@
+import * as Piadas10 from '../models/10Piadas.js';
 import * as Piada from '../models/Piada.js'; // Importamos o Model
 
 
@@ -47,6 +48,23 @@ export async function buscarPiadasAleatoria(req, res) {
         res.json(piada);
     } catch (error) {
         res.status(500).json({ message: 'Erro ao buscar piada.' });
+    }
+}
+
+export async function buscar10PiadasAleatorias(req, res) {
+    try {
+        const piadas = await Piadas10.getPiadaAleatoria10();
+
+        if (!piadas) {
+            return res.status(404).json({
+                message: 'Ainda não temos piadas o suficiente aprivadas.'
+            });
+        }
+
+        res.json(piadas);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Erro ao buscar piadas.' });
     }
 }
 

@@ -7,9 +7,11 @@ export async function createUser(email, senhaHash) {
         email,
         senhaHash
     );
-    return {
-        id: result.lastID,
-        email
-    };
+    return {id: result.lastID,email };
     
+}
+
+export async function findUserByEmail(email) {
+    const db = await openDb();
+    return await db.get('SELECT * FROM usuarios WHERE email = ?', email);
 }
